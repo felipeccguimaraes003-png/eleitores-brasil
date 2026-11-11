@@ -1,0 +1,2 @@
+# Só para o ETL offline do TSE (make etl-tse). A aplicação em produção não precisa disto.
+pandera[pandas]>=0.22,<1

@@ -1,0 +1,37 @@
+name: eleitores-brasil
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    environment:
+      CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-900}
+      RATE_LIMIT: ${RATE_LIMIT:-120/minute}
+      ENABLE_DOCS: ${ENABLE_DOCS:-true}
+      TRUSTED_PROXY_HOPS: ${TRUSTED_PROXY_HOPS:-0}
+    # Só o próprio computador acessa a API/Swagger. O público passa pelo Streamlit.
+    ports:
+      - "127.0.0.1:8000:8000"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    environment:
+      API_BASE_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "8501:8501"
+    # Sem read_only aqui: o Streamlit grava arquivos temporários ao iniciar.
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped

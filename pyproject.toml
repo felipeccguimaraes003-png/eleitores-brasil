@@ -1,0 +1,57 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "SIM", "C4", "RUF", "ASYNC", "PT", "N", "PL"]
+ignore = ["PLR2004", "PLR0913"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "PLR0915", "E501", "RUF001", "PT018", "PLR0911"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["backend", "frontend", "tests"]
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["plotly.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning:starlette.*"]
+
+[tool.importlinter]
+root_package = "backend"
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "Dominio nao conhece nenhuma outra camada nem biblioteca de infraestrutura"
+type = "forbidden"
+source_modules = ["backend.domain"]
+forbidden_modules = [
+    "backend.adapters", "backend.services", "backend.api", "backend.config",
+    "httpx", "fastapi", "starlette", "pydantic", "pandas",
+]
+
+[[tool.importlinter.contracts]]
+name = "Servicos dependem so do dominio (portas), nunca de adaptadores ou da API"
+type = "forbidden"
+source_modules = ["backend.services"]
+forbidden_modules = ["backend.adapters", "backend.api", "backend.config", "httpx", "fastapi", "starlette"]
+
+[[tool.importlinter.contracts]]
+name = "Adaptadores nao conhecem servicos nem a API"
+type = "forbidden"
+source_modules = ["backend.adapters"]
+forbidden_modules = ["backend.services", "backend.api", "fastapi", "starlette"]
+
+[[tool.importlinter.contracts]]
+name = "A camada HTTP nao fala direto com adaptadores"
+type = "forbidden"
+source_modules = ["backend.api"]
+forbidden_modules = ["backend.adapters", "httpx"]

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eleitores Brasil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<a class="skip" href="#painel">Pular para os representantes</a>
+<header class="top">
+  <a class="brand" href="#inicio" id="brand" aria-label="Eleitores Brasil, início">
+    <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#009C3B" stroke="#fff" stroke-width="2"/><path d="M24 7 43 24 24 41 5 24z" fill="#FFDF00"/><circle cx="24" cy="24" r="8.5" fill="#002776"/><path d="M16 22.5c5.5-1.6 11-.8 16 2.2" stroke="#fff" stroke-width="1.7" fill="none"/></svg>
+    <span class="word">Eleitores<b>Brasil</b></span>
+  </a>
+  <div class="search" role="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="busca" type="search" autocomplete="off" placeholder="Busque um estado ou um político" aria-label="Buscar estado ou político" aria-controls="sugestoes">
+    <ul id="sugestoes" class="suggest" hidden></ul>
+  </div>
+  <nav class="nav" aria-label="Menu">
+    <button type="button" id="abrir-cargos" aria-label="Quem manda em quê"><span class="long">Quem manda em quê</span><span class="short">Cargos</span></button>
+    <button type="button" id="tema" class="icon" aria-label="Trocar entre tema claro e escuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/></svg></button>
+  </nav>
+</header>
+
+<main class="wrap">
+  <nav class="crumb" id="trilha" aria-label="Você está em"></nav>
+  <div class="grid">
+    <section class="stage" aria-label="Mapa do Brasil">
+      <div class="stage-head">
+        <h1 id="titulo-mapa">Quem representa você?</h1>
+        <p id="sub-mapa">Clique no seu estado para ver quem foi eleito em 2026.</p>
+      </div>
+      <div class="mapbox"><div id="mapa"></div><div id="dica" class="tip" hidden></div></div>
+      <div class="legend"><span><i class="sw sw-sel"></i>Estado escolhido</span><span><i class="sw sw-base"></i>Demais estados</span></div>
+      <div class="tiles" id="numeros"></div>
+    </section>
+    <section class="panel" id="painel" aria-live="polite"></section>
+  </div>
+  <p class="foot">Dados: Tribunal Superior Eleitoral, Candidatos 2026, licença CC-BY 4.0. Projeto independente, sem vínculo com órgãos públicos. Não coletamos dados de quem consulta.</p>
+</main>
+
+<dialog id="perfil" class="drawer" aria-labelledby="perfil-nome"></dialog>
+<dialog id="cargos" class="sheet" aria-labelledby="cargos-titulo"></dialog>
+<script src="app.js"></script>
+</body>
+</html>
