@@ -1,7 +1,7 @@
 -r requirements/app.in
 -r requirements/etl.in
 pytest>=8.3,<10
-ruff>=0.7,<1
+ruff>=0.17.4,<1
 mypy>=1.13,<2
 pandas-stubs
 import-linter>=2.1,<3
