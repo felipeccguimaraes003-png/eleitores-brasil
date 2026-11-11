@@ -37,18 +37,3 @@ python scripts/build_page.py                 # gera dist/index.html
 - **Em reforma:** a pasta `backend/` (FastAPI) está no meio da migração para o modelo novo de cargos
   e ainda não serve este site. Os testes antigos do backend não passam neste estado.
 
-## Estrutura
-
-- `web/`: `index.html`, `app.css`, `app.js` e `data/` (eleitos e mapa). Sem bibliotecas.
-- `scripts/build_data.py`: lê os CSV do TSE e gera os dados do site.
-- `scripts/build_page.py`: junta tudo em `dist/index.html`.
-- `data/geo/br_states.geojson`: malha simplificada dos estados (origem: repositório público
-  `codeforamerica/click_that_hood`; troque pela malha oficial do IBGE antes de publicar).
-
-## Publicar no GitHub Pages
-
-1. Crie um repositório público vazio no GitHub (ex.: `eleitores-brasil`).
-2. Na pasta do projeto: `git remote add origin https://github.com/SEU_USUARIO/eleitores-brasil.git` e `git push -u origin main`.
-3. No GitHub: Settings > Pages > Source: **GitHub Actions**.
-4. O workflow `.github/workflows/pages.yml` publica a pasta `web/` a cada push na `main`.
-   O endereço fica `https://SEU_USUARIO.github.io/eleitores-brasil/`.
